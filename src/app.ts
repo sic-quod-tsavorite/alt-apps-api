@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from "express";
 import dotenvFlow from "dotenv-flow";
 import routes from "./routes";
 import cors from "cors";
+import { testConnection } from "./repository/database";
 
 dotenvFlow.config();
 
@@ -13,6 +14,9 @@ app.use("/aa-api", routes);
 export function startServer() {
   // cors first
   setupCors();
+
+  //test connection by first connecting and then disconnecting to the db
+  testConnection();
 
   // start the server and get port from .env or default to 4000
   const PORT: number = parseInt(process.env.PORT as string) || 4000;
