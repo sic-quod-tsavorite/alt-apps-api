@@ -1,10 +1,10 @@
 import { Schema, model } from "mongoose";
-import { Application } from "../interfaces/application";
+import { Program } from "../interfaces/program";
 
 /**
- * Define the Application schema for ts
+ * Define the Program schema for ts
  */
-const appSchema = new Schema<Application>({
+const prgSchema = new Schema<Program>({
   name: { type: String, required: true, min: 5, max: 100 },
   description: { type: String, required: false, min: 10, max: 255 },
   logo: { type: String, required: true },
@@ -13,10 +13,10 @@ const appSchema = new Schema<Application>({
   _createdBy: { type: String, ref: "User", required: true },
 });
 
-export const appModel = model<Application>("App", appSchema);
+export const prgModel = model<Program>("Program", prgSchema);
 
 /**
- * Handle app version for db (when updating an already existing app)
+ * Handle program version for db (when updating an already existing program)
  */
 type UpdateQuery<T> = {
   [key: string]: unknown;
@@ -28,9 +28,9 @@ type UpdateQuery<T> = {
 };
 
 /**
- * App version control for when it gets updated
+ * Program version control for when it gets updated
  */
-appSchema.pre("findOneAndUpdate", function <T extends Document>(this: any) {
+prgSchema.pre("findOneAndUpdate", function <T extends Document>(this: any) {
   const update = this.getUpdate() as UpdateQuery<T>;
   if (update.__v != null) {
     delete update.__v;

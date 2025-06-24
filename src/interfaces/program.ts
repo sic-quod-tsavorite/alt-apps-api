@@ -1,6 +1,6 @@
 import { User } from "./user";
 
-export interface Application extends Document {
+export interface Program extends Document {
   name: string;
   description: string;
   logo: string;
