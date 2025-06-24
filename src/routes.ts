@@ -6,9 +6,15 @@ import {
   updatePrgById,
   deletePrgById,
 } from "./controllers/prgController";
+import {
+  loginUser,
+  registerUser,
+  verifyToken,
+} from "./controllers/authController";
 
 const router: Router = Router();
 
+// Health check / Welcome route
 /**
  * @swagger
  * /:
@@ -24,6 +30,63 @@ const router: Router = Router();
 router.get("/", (req: Request, res: Response) => {
   res.status(200).send({ message: "Alt apps API is running!" });
 });
+
+// Auth routes
+/**
+ * @swagger
+ * /user/register:
+ *   post:
+ *     tags:
+ *       - User Routes
+ *     summary: Register a new user
+ *     description: Takes a user in the body and tries to register it in the database
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/User"
+ *     responses:
+ *       201:
+ *         description: User created succesfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                 _id:
+ *                   type: string
+ */
+router.post("/user/register", registerUser);
+
+/**
+ * @swagger
+ * /user/login:
+ *   post:
+ *     tags:
+ *       - User Routes
+ *     summary: Login a user
+ *     description: Takes a user in the body and tries to login
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/User"
+ *     responses:
+ *       200:
+ *         description: User logged in successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ */
+router.post("/user/login", loginUser);
 
 // Program routes
 //- create
@@ -51,7 +114,7 @@ router.get("/", (req: Request, res: Response) => {
  *             schema:
  *               $ref: "#/components/schemas/Program"
  */
-router.post("/programs", createPrg);
+router.post("/programs", verifyToken, createPrg);
 
 //- gets all programs
 /**
@@ -133,7 +196,7 @@ router.get("/programs/:id", getPrgsById);
  *             schema:
  *               $ref: "#/components/schemas/Program"
  */
-router.put("/programs/:id", updatePrgById);
+router.put("/programs/:id", verifyToken, updatePrgById);
 
 //- delete
 /**
@@ -157,6 +220,6 @@ router.put("/programs/:id", updatePrgById);
  *       200:
  *         description: Program deleted successfully
  */
-router.delete("/programs/:id", deletePrgById);
+router.delete("/programs/:id", verifyToken, deletePrgById);
 
 export default router;
