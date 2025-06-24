@@ -1,4 +1,4 @@
-import express, { Application, Request, Response } from "express";
+import express, { Application } from "express";
 import dotenvFlow from "dotenv-flow";
 import routes from "./routes";
 import cors from "cors";
@@ -12,6 +12,9 @@ const app: Application = express();
 export function startServer() {
   // cors first
   setupCors();
+
+  // json body parser
+  app.use(express.json());
 
   // bind routes to the app
   app.use("/aa-api", routes);
