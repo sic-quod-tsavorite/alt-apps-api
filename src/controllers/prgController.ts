@@ -24,3 +24,22 @@ export async function createPrg(req: Request, res: Response): Promise<void> {
     await disconnect();
   }
 }
+
+/**
+ * Retrieves all programs from the data source
+ * @param req
+ * @param res
+ */
+export async function getAllPrgs(req: Request, res: Response) {
+  try {
+    await connect();
+
+    const result = await prgModel.find({});
+
+    res.status(200).send(result);
+  } catch (err) {
+    res.status(500).send("Error retrieving programs. Error: " + err);
+  } finally {
+    await disconnect();
+  }
+}
