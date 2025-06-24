@@ -18,7 +18,9 @@
     "build": "rm -rf ./dist && tsc",
     "start-dev": "cross-env NODE_ENV=dev npx nodemon",
     "start-local": "cross-env NODE_ENV=local npx nodemon",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start-test": "cross-env NODE_ENV=test npx nodemon",
+    "pwTest": "npx playwright test --reporter=list",
+    "testdb": "cross-env NODE_ENV=test npx ts-node ./src/index.ts"
   },
   "nodemonConfig": {
     "verbose": false,
@@ -42,6 +44,7 @@
     "nodemon": "^3.1.10"
   },
   "devDependencies": {
+    "@playwright/test": "^1.53.1",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/joi": "^17.2.2",
