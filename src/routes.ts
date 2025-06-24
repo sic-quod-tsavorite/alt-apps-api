@@ -3,6 +3,7 @@ import {
   createPrg,
   getAllPrgs,
   getPrgsById,
+  updatePrgById,
 } from "./controllers/prgController";
 
 const router: Router = Router();
@@ -75,7 +76,7 @@ router.get("/programs", getAllPrgs);
 //- get a program by its id
 /**
  * @swagger
- * /program/{id}:
+ * /programs/{id}:
  *   get:
  *     tags:
  *       - Program Routes
@@ -97,5 +98,40 @@ router.get("/programs", getAllPrgs);
  *               $ref: "#/components/schemas/Program"
  */
 router.get("/programs/:id", getPrgsById);
+
+//- update
+/**
+ * @swagger
+ * /programs/{id}:
+ *   put:
+ *     tags:
+ *       - Program Routes
+ *     summary: Updates a specific Program
+ *     description: Updates a specific Program based on its id
+ *     security:
+ *       - ApiKeyAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID from repository
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/Program"
+ *
+ *     responses:
+ *       200:
+ *         description: Program updated succesfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/Program"
+ */
+router.put("/programs/:id", updatePrgById);
 
 export default router;

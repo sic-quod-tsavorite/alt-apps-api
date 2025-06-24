@@ -63,3 +63,26 @@ export async function getPrgsById(req: Request, res: Response) {
     await disconnect();
   }
 }
+
+/**
+ * Update a program by its id from the data source
+ * @param req
+ * @param res
+ */
+export async function updatePrgById(req: Request, res: Response) {
+  const id = req.params.id;
+  try {
+    await connect();
+
+    const result = await prgModel.findByIdAndUpdate(id, req.body);
+    if (!result) {
+      res.status(404).send("Cannot find program with id: " + id);
+    } else {
+      res.status(200).send("Program updated successfully.");
+    }
+  } catch (err) {
+    res.status(500).send("Error updating program by id. Error: " + err);
+  } finally {
+    await disconnect();
+  }
+}
