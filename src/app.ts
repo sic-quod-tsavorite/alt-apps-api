@@ -9,11 +9,12 @@ dotenvFlow.config();
 // create express application
 const app: Application = express();
 
-app.use("/aa-api", routes);
-
 export function startServer() {
   // cors first
   setupCors();
+
+  // bind routes to the app
+  app.use("/aa-api", routes);
 
   //test connection by first connecting and then disconnecting to the db
   testConnection();
