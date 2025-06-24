@@ -43,3 +43,23 @@ export async function getAllPrgs(req: Request, res: Response) {
     await disconnect();
   }
 }
+
+/**
+ * Retrieves a program by its id from the data source
+ * @param req
+ * @param res
+ */
+export async function getPrgsById(req: Request, res: Response) {
+  try {
+    await connect();
+
+    const id = req.params.id; // get the id from the request
+    const result = await prgModel.findById(id);
+
+    res.status(200).send(result);
+  } catch (err) {
+    res.status(500).send("Error retrieving program by id. Error: " + err);
+  } finally {
+    await disconnect();
+  }
+}

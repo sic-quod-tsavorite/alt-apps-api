@@ -1,5 +1,9 @@
 import { Router, Request, Response } from "express";
-import { createPrg, getAllPrgs } from "./controllers/prgController";
+import {
+  createPrg,
+  getAllPrgs,
+  getPrgsById,
+} from "./controllers/prgController";
 
 const router: Router = Router();
 
@@ -67,5 +71,31 @@ router.post("/programs", createPrg);
  *                 $ref: "#/components/schemas/Program"
  */
 router.get("/programs", getAllPrgs);
+
+//- get a program by its id
+/**
+ * @swagger
+ * /program/{id}:
+ *   get:
+ *     tags:
+ *       - Program Routes
+ *     summary: Get a Program by ID
+ *     description: Retrieves a Program by its ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the Program
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: A Program object
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/Program"
+ */
+router.get("/programs/:id", getPrgsById);
 
 export default router;
