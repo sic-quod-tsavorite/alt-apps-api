@@ -39,6 +39,11 @@ jobs:
           touch .env
           echo "${{secrets.API}}" >> .env
 
+      - name: Create .env.test file
+        run: |
+          touch .env.test
+          echo "${{secrets.TEST_DB}}" >> .env.test
+
       - name: NPM install, build and test
         run: |
           npm install
