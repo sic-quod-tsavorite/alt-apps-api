@@ -4,6 +4,7 @@ import {
   getAllPrgs,
   getPrgsById,
   updatePrgById,
+  deletePrgById,
 } from "./controllers/prgController";
 
 const router: Router = Router();
@@ -133,5 +134,29 @@ router.get("/programs/:id", getPrgsById);
  *               $ref: "#/components/schemas/Program"
  */
 router.put("/programs/:id", updatePrgById);
+
+//- delete
+/**
+ * @swagger
+ * /programs/{id}:
+ *   delete:
+ *     tags:
+ *       - Program Routes
+ *     summary: Deletes a specific Program
+ *     description: Deletes a specific Program based on its id
+ *     security:
+ *       - ApiKeyAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID from repository
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Program deleted successfully
+ */
+router.delete("/programs/:id", deletePrgById);
 
 export default router;
