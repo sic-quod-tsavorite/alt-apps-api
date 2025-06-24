@@ -42,3 +42,4 @@ jobs:
           npm install
           npm run build
           npm run pwTest
+          npm run failTest
