@@ -3,6 +3,7 @@ import dotenvFlow from "dotenv-flow";
 import routes from "./routes";
 import cors from "cors";
 import { testConnection } from "./repository/database";
+import { setupDocs } from "./util/documentation";
 
 dotenvFlow.config();
 
@@ -18,6 +19,9 @@ export function startServer() {
 
   // bind routes to the app
   app.use("/aa-api", routes);
+
+  // Docs
+  setupDocs(app);
 
   //test connection by first connecting and then disconnecting to the db
   testConnection();
