@@ -109,3 +109,29 @@ export async function deletePrgById(req: Request, res: Response) {
     await disconnect();
   }
 }
+
+/**
+ * Retrieves a program with a query from the data source
+ * @param req
+ * @param res
+ */
+export async function getPrgsByQuery(req: Request, res: Response) {
+  const key = req.params.key;
+  const val = req.params.val;
+
+  try {
+    await connect();
+
+    const result = await prgModel.find({
+      [key]: { $regex: val, $options: "i" },
+    });
+
+    res.status(200).send(result);
+  } catch (err) {
+    res
+      .status(500)
+      .send("Error retrieving program with the query. Error: " + err);
+  } finally {
+    await disconnect();
+  }
+}

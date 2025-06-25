@@ -5,6 +5,7 @@ import {
   getPrgsById,
   updatePrgById,
   deletePrgById,
+  getPrgsByQuery,
 } from "./controllers/prgController";
 import {
   loginUser,
@@ -162,6 +163,40 @@ router.get("/programs", getAllPrgs);
  *               $ref: "#/components/schemas/Program"
  */
 router.get("/programs/:id", getPrgsById);
+
+//- get program by a query
+/**
+ * @swagger
+ * /programs/query/{key}/{val}:
+ *   get:
+ *     tags:
+ *       - Program Routes
+ *     summary: Get Program by query
+ *     description: Retrieves Program by a query. Example&#58; "/programs/query/description/example" to find a program where the description includes the word example. (case-insensitive)
+ *     parameters:
+ *       - in: path
+ *         name: key
+ *         required: true
+ *         description: Query key
+ *         schema:
+ *           type: string
+ *       - in: path
+ *         name: val
+ *         required: true
+ *         description: Query value
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: A list of Programs
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: "#/components/schemas/Program"
+ */
+router.get("/programs/query/:key/:val", getPrgsByQuery);
 
 //- update
 /**
