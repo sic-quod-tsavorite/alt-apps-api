@@ -8,6 +8,13 @@ import {
   getPrgsByQuery,
 } from "./controllers/prgController";
 import {
+  createPrg as createAltPrg,
+  getAllAltPrgs,
+  getAltPrgsById,
+  updateAltPrgById,
+  deleteAltPrgById,
+} from "./controllers/altPrgController";
+import {
   loginUser,
   registerUser,
   verifyToken,
@@ -256,5 +263,139 @@ router.put("/programs/:id", verifyToken, updatePrgById);
  *         description: Program deleted successfully
  */
 router.delete("/programs/:id", verifyToken, deletePrgById);
+
+// AltProgram routes
+//- create
+/**
+ * @swagger
+ * /alt-programs:
+ *   post:
+ *     tags:
+ *       - AltProgram Routes
+ *     summary: Create a new AltProgram
+ *     description: Creates a new AltProgram
+ *     security:
+ *       - ApiKeyAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/AltProgram"
+ *     responses:
+ *       201:
+ *         description: AltProgram created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/AltProgram"
+ */
+router.post("/alt-programs", verifyToken, createAltPrg);
+
+//- gets all alt programs
+/**
+ * @swagger
+ * /alt-programs:
+ *   get:
+ *     tags:
+ *       - AltProgram Routes
+ *     summary: Get all AltPrograms
+ *     description: Retrieves all AltPrograms
+ *     responses:
+ *       200:
+ *         description: A list of AltPrograms
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: "#/components/schemas/AltProgram"
+ */
+router.get("/alt-programs", getAllAltPrgs);
+
+//- get an alt program by its id
+/**
+ * @swagger
+ * /alt-programs/{id}:
+ *   get:
+ *     tags:
+ *       - AltProgram Routes
+ *     summary: Get an AltProgram by ID
+ *     description: Retrieves an AltProgram by its ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the AltProgram
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: An AltProgram object
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/AltProgram"
+ */
+router.get("/alt-programs/:id", getAltPrgsById);
+
+//- update
+/**
+ * @swagger
+ * /alt-programs/{id}:
+ *   put:
+ *     tags:
+ *       - AltProgram Routes
+ *     summary: Updates a specific AltProgram
+ *     description: Updates a specific AltProgram based on its id
+ *     security:
+ *       - ApiKeyAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID from repository
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/AltProgram"
+ *
+ *     responses:
+ *       200:
+ *         description: AltProgram updated succesfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/AltProgram"
+ */
+router.put("/alt-programs/:id", verifyToken, updateAltPrgById);
+
+//- delete
+/**
+ * @swagger
+ * /alt-programs/{id}:
+ *   delete:
+ *     tags:
+ *       - AltProgram Routes
+ *     summary: Deletes a specific AltProgram
+ *     description: Deletes a specific AltProgram based on its id
+ *     security:
+ *       - ApiKeyAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID from repository
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: AltProgram deleted successfully
+ */
+router.delete("/alt-programs/:id", verifyToken, deleteAltPrgById);
 
 export default router;

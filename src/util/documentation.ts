@@ -34,17 +34,6 @@ export function setupDocs(app: Application) {
         },
       },
       schemas: {
-        Program: {
-          type: "object",
-          properties: {
-            name: { type: "string" },
-            description: { type: "string" },
-            logo: { type: "string" },
-            country: { type: "string" },
-            isHidden: { type: "boolean" },
-            _createdBy: { type: "string" },
-          },
-        },
         User: {
           type: "object",
           properties: {
@@ -53,6 +42,30 @@ export function setupDocs(app: Application) {
             email: { type: "string" },
             password: { type: "string" },
             registerDate: { type: "string" },
+          },
+        },
+        Program: {
+          type: "object",
+          properties: {
+            name: { type: "string" },
+            description: { type: "string" },
+            logo: { type: "string" },
+            country: { type: "string" },
+            isHidden: { type: "boolean" },
+            altPrograms: { type: "array" },
+            _createdBy: { type: "string" },
+          },
+        },
+        AltProgram: {
+          type: "object",
+          properties: {
+            id: { type: "string" },
+            name: { type: "string" },
+            description: { type: "string" },
+            logo: { type: "string" },
+            country: { type: "string" },
+            isHidden: { type: "boolean" },
+            _createdBy: { type: "string" },
           },
         },
       },

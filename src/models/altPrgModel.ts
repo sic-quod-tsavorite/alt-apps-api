@@ -1,23 +1,22 @@
 import { Schema, model } from "mongoose";
-import { Program } from "../interfaces/program";
+import { AltProgram } from "../interfaces/altProgram";
 
 /**
- * Define the Program schema for ts
+ * Define the Alternative Program schema for ts
  */
-const prgSchema = new Schema<Program>({
+const altPrgSchema = new Schema<AltProgram>({
   name: { type: String, required: true, min: 5, max: 100 },
   description: { type: String, required: false, min: 10, max: 255 },
   logo: { type: String, required: true },
   country: { type: String, required: true },
   isHidden: { type: Boolean, required: true, default: false },
-  altPrograms: [{ type: Schema.Types.ObjectId, ref: "AltProgram" }],
   _createdBy: { type: String, ref: "User", required: true },
 });
 
-export const prgModel = model<Program>("Program", prgSchema);
+export const altPrgModel = model<AltProgram>("AltProgram", altPrgSchema);
 
 /**
- * Handle program version for db (when updating an already existing program)
+ * Handle program version for db (when updating an already existing alternative program)
  */
 type UpdateQuery<T> = {
   [key: string]: unknown;
@@ -29,9 +28,9 @@ type UpdateQuery<T> = {
 };
 
 /**
- * Program version control for when it gets updated
+ * Alternative program version control for when it gets updated
  */
-prgSchema.pre("findOneAndUpdate", function <T extends Document>(this: any) {
+altPrgSchema.pre("findOneAndUpdate", function <T extends Document>(this: any) {
   const update = this.getUpdate() as UpdateQuery<T>;
   if (update.__v != null) {
     delete update.__v;
