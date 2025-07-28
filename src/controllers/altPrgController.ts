@@ -8,7 +8,7 @@ import { connect, disconnect } from "../repository/database";
  * @param req
  * @param res
  */
-export async function createPrg(req: Request, res: Response): Promise<void> {
+export async function createAltPrg(req: Request, res: Response): Promise<void> {
   const data = req.body;
 
   try {

@@ -8,7 +8,7 @@ import {
   getPrgsByQuery,
 } from "./controllers/prgController";
 import {
-  createPrg as createAltPrg,
+  createAltPrg,
   getAllAltPrgs,
   getAltPrgsById,
   updateAltPrgById,
